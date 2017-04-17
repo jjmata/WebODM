@@ -179,20 +179,41 @@ LOGGING = {
             # 'filters': ['require_debug_true'],
             'class': 'logging.StreamHandler',
             'formatter': 'simple'
+        },
+        'djangologfile': {
+            'level':'DEBUG',
+            'class':'logging.handlers.RotatingFileHandler',
+            'filename': 'webodm-django.log',
+            'maxBytes': 1024*1024*15, # 15MB
+            'backupCount': 10,
+        },
+        'applogfile': {
+            'level':'DEBUG',
+            'class':'logging.handlers.RotatingFileHandler',
+            'filename': 'webodm-app.log',
+            'maxBytes': 1024*1024*15, # 15MB
+            'backupCount': 10,
+        },
+        'apslogfile': {
+            'level':'DEBUG',
+            'class':'logging.handlers.RotatingFileHandler',
+            'filename': 'webodm-aps.log',
+            'maxBytes': 1024*1024*15, # 15MB
+            'backupCount': 10,            
         }
     },
     'loggers': {
         'django': {
-            'handlers': ['console'],
+            'handlers': ['console','djangologfile'],
             'propagate': True,
             'level': 'WARNING',
         },
         'app.logger': {
-            'handlers': ['console'],
+            'handlers': ['console','applogfile'],
             'level': 'INFO',
         },
         'apscheduler.executors.default': {
-            'handlers': ['console'],
+            'handlers': ['console','apslogfile'],
             'level': 'WARNING',
         }
     }
